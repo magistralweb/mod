@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magix • Socials & Media</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    :root { --bg-body: #f0f0f0; --text-main: #0f172a; --text-muted: #64748b; --nav-bg: #e0e0e0; --card-bg: #ffffff; --card-border: #e2e8f0; --btn-color: #725AC1; }
+    body.dark-mode { --bg-body: #1a1a1a; --text-main: #f8fafc; --text-muted: #94a3b8; --nav-bg: #262626; --card-bg: #1e293b; --card-border: #334155; --btn-color: #a78bfa; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-main); line-height: 1.6; transition: background 0.3s, color 0.3s; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    
+    .navbar { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); width: 95%; max-width: 1200px; border-radius: 30px; background: var(--nav-bg); box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff; z-index: 1000; padding: 10px 30px; transition: all 0.3s ease; }
+    body.dark-mode .navbar { box-shadow: 15px 15px 30px #0d0d0d, -15px -15px 30px #333333; }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-weight: 700; font-size: 20px; color: var(--text-main); text-decoration: none; letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 15px; list-style: none; align-items: center; margin: 0; padding: 0; }
+    .nav-links a.nav-item { text-decoration: none; color: var(--text-muted); font-size: 14px; font-weight: 500; transition: all 0.2s ease; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+    .nav-links a.nav-item:hover, .nav-links a.nav-item.active { color: var(--btn-color); background: rgba(114, 90, 193, 0.05); }
+
+    .universal-btn { position: relative; display: inline-flex; justify-content: center; align-items: center; margin: 0; padding: 10px 24px; text-align: center; font-size: 14px; letter-spacing: 1px; text-decoration: none; color: var(--btn-color); background: transparent; border: 2px solid var(--btn-color); box-shadow: inset 0 0 0 0 var(--btn-color); cursor: pointer; transition: ease-out 0.5s; border-radius: 10px; font-weight: 600; font-family: inherit; white-space: nowrap; }
+    .universal-btn:hover { color: white; box-shadow: inset 0 -100px 0 0 var(--btn-color); }
+    body.dark-mode .universal-btn:hover { color: #ffffff; }
+    .universal-btn:active { transform: scale(0.9); }
+
+    .hero-small { padding: 160px 0 60px; text-align: center; }
+    
+    .social-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-bottom: 80px; }
+    .social-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 40px; text-align: center; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+    .social-card:hover { transform: translateY(-5px); border-color: var(--btn-color); box-shadow: 0 10px 20px rgba(114, 90, 193, 0.15); }
+    .social-icon { font-size: 48px; color: var(--btn-color); margin-bottom: 20px; }
+    .social-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; color: var(--text-main); }
+    .social-desc { color: var(--text-muted); margin-bottom: 30px; }
+
+    .trailer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .trailer-card { border-radius: 16px; overflow: hidden; position: relative; aspect-ratio: 16/9; background: #000; transition: transform 0.3s ease; border: 1px solid var(--card-border); cursor: pointer; }
+    .trailer-card:hover { transform: scale(1.02); }
+    .trailer-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: opacity 0.3s; }
+    .trailer-card:hover img { opacity: 0.4; }
+    .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 60px; color: white; opacity: 0.8; z-index: 2; pointer-events: none; }
+    .trailer-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: white; z-index: 2; }
+
+    h1 { font-size: 48px; font-weight: 700; margin-bottom: 20px; color: var(--text-main); }
+    h2 { font-size: 32px; font-weight: 600; margin-bottom: 30px; color: var(--text-main); text-align: center; }
+    p { color: var(--text-muted); }
+
+    footer { border-top: 1px solid var(--card-border); padding: 48px 0; margin-top: 80px; background: var(--bg-body); }
+    .footer-content { text-align: center; color: var(--text-muted); font-size: 14px; }
+    .mobile-toggle { display: none; background: none; border: none; font-size: 24px; color: var(--text-main); cursor: pointer; }
+
+    @media (max-width: 768px) {
+        .navbar { width: 90%; padding: 10px 20px; }
+        .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--nav-bg); flex-direction: column; padding: 24px; border-radius: 0 0 30px 30px; gap: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .nav-links.active { display: flex; }
+        .mobile-toggle { display: block; }
+        .social-grid { grid-template-columns: 1fr; }
+        .hero-small { padding-top: 140px; }
+    }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="logo">MAGIX<span style="color:var(--btn-color)">.MOD</span></a>
+        <button class="mobile-toggle" onclick="toggleMenu()">☰</button>
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-item" data-i18n="nav_home">Home</a></li>
+            <li><a href="features.html" class="nav-item" data-i18n="nav_features">Features</a></li>
+            <li><a href="#" class="nav-item active" data-i18n="nav_socials">Socials</a></li>
+            
+            <li><button id="langBtn" class="universal-btn" onclick="toggleLanguage()" style="padding: 8px 16px;">EN</button></li>
+            <li><button class="universal-btn" onclick="toggleTheme()" title="Thème" style="padding: 8px 16px;">🌗</button></li>
+        </ul>
+    </div>
+</nav>
+
+<section class="hero-small reveal">
+    <div class="container">
+        <h1 data-i18n="hero_title">Join the Community</h1>
+        <p style="max-width: 600px; margin: 0 auto;" data-i18n="hero_desc">Follow development updates, watch trailers, and chat with other Magix players.</p>
+    </div>
+</section>
+
+<section class="container reveal">
+    <div class="social-grid">
+        <div class="social-card reveal">
+            <i class="fa-brands fa-discord social-icon"></i>
+            <h3 class="social-title">Discord Server</h3>
+            <p class="social-desc" data-i18n="discord_desc">Join the official server to chat with devs, report bugs, and get early access news.</p>
+            <a href="https://discord.gg/YFugq8g7Cp" target="_blank" class="universal-btn">Join Discord</a>
+        </div>
+
+        <div class="social-card reveal" style="transition-delay: 0.1s;">
+            <i class="fa-brands fa-youtube social-icon"></i>
+            <h3 class="social-title">YouTube Channel</h3>
+            <p class="social-desc" data-i18n="yt_desc">Subscribe to Magistral for devlogs, gameplay previews, and OST releases.</p>
+            <a href="https://www.youtube.com/@magistral4889" target="_blank" class="universal-btn">Visit Channel</a>
+        </div>
+    </div>
+
+    <h2 data-i18n="trailers_title">Official Trailers</h2>
+    <div class="trailer-grid">
+        
+        <a href="https://www.youtube.com/@magistral4889" target="_blank" class="trailer-card reveal">
+            <i class="fa-solid fa-play play-icon"></i>
+            <img src="https://placehold.co/600x340/1e293b/ffffff?text=Magix+Trailer+1" alt="Trailer 1">
+            <div class="trailer-info">
+                <h4 style="margin:0;">Magix Announcement Trailer</h4>
+            </div>
+        </a>
+
+        <a href="https://www.youtube.com/@magistral4889" target="_blank" class="trailer-card reveal" style="transition-delay: 0.2s;">
+            <i class="fa-solid fa-play play-icon"></i>
+            <img src="https://placehold.co/600x340/1e293b/ffffff?text=Gameplay+Showcase" alt="Trailer 2">
+            <div class="trailer-info">
+                <h4 style="margin:0;">Gameplay Showcase</h4>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+<footer>
+    <div class="container footer-content">
+        <p data-i18n="footer_copy">&copy; 2025 Magistral. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    const translations = {
+        en: {
+            nav_home: "Home",
+            nav_features: "Features",
+            nav_socials: "Socials",
+            hero_title: "Join the Community",
+            hero_desc: "Follow development updates, watch trailers, and chat with other Magix players.",
+            discord_desc: "Join the official server to chat with devs, report bugs, and get early access news.",
+            yt_desc: "Subscribe to Magistral for devlogs, gameplay previews, and OST releases.",
+            trailers_title: "Official Trailers",
+            footer_copy: "&copy; 2025 Magistral. All rights reserved."
+        },
+        fr: {
+            nav_home: "Accueil",
+            nav_features: "Fonctionnalités",
+            nav_socials: "Réseaux",
+            hero_title: "Rejoignez la Communauté",
+            hero_desc: "Suivez le développement, regardez les trailers et discutez avec d'autres joueurs de Magix.",
+            discord_desc: "Rejoignez le serveur officiel pour parler aux devs, signaler des bugs et voir les news.",
+            yt_desc: "Abonnez-vous à Magistral pour les devlogs, le gameplay et les musiques.",
+            trailers_title: "Trailers Officiels",
+            footer_copy: "&copy; 2025 Magistral. Tous droits réservés."
+        }
+    };
+
+    let currentLang = 'en';
+
+    function toggleLanguage() {
+        currentLang = (currentLang === 'en') ? 'fr' : 'en';
+        document.getElementById('langBtn').innerText = currentLang.toUpperCase();
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            if (translations[currentLang][key]) element.innerHTML = translations[currentLang][key];
+        });
+    }
+
+    function toggleTheme() { document.body.classList.toggle('dark-mode'); }
+    function toggleMenu() { document.querySelector('.nav-links').classList.toggle('active'); }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+</script>
+</body>
+</html>

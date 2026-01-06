@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magix • Features</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    /* CSS Identique à index.html pour la base */
+    :root { --bg-body: #f0f0f0; --text-main: #0f172a; --text-muted: #64748b; --nav-bg: #e0e0e0; --card-bg: #ffffff; --card-border: #e2e8f0; --btn-color: #725AC1; }
+    body.dark-mode { --bg-body: #1a1a1a; --text-main: #f8fafc; --text-muted: #94a3b8; --nav-bg: #262626; --card-bg: #1e293b; --card-border: #334155; --btn-color: #a78bfa; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-main); line-height: 1.6; transition: background 0.3s, color 0.3s; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    
+    .navbar { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); width: 95%; max-width: 1200px; border-radius: 30px; background: var(--nav-bg); box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff; z-index: 1000; padding: 10px 30px; transition: all 0.3s ease; }
+    body.dark-mode .navbar { box-shadow: 15px 15px 30px #0d0d0d, -15px -15px 30px #333333; }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-weight: 700; font-size: 20px; color: var(--text-main); text-decoration: none; letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 15px; list-style: none; align-items: center; margin: 0; padding: 0; }
+    .nav-links a.nav-item { text-decoration: none; color: var(--text-muted); font-size: 14px; font-weight: 500; transition: all 0.2s ease; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+    .nav-links a.nav-item:hover, .nav-links a.nav-item.active { color: var(--btn-color); background: rgba(114, 90, 193, 0.05); }
+
+    .universal-btn { position: relative; display: inline-flex; justify-content: center; align-items: center; margin: 0; padding: 10px 24px; text-align: center; font-size: 14px; letter-spacing: 1px; text-decoration: none; color: var(--btn-color); background: transparent; border: 2px solid var(--btn-color); box-shadow: inset 0 0 0 0 var(--btn-color); cursor: pointer; transition: ease-out 0.5s; border-radius: 10px; font-weight: 600; font-family: inherit; white-space: nowrap; }
+    .universal-btn:hover { color: white; box-shadow: inset 0 -100px 0 0 var(--btn-color); }
+    body.dark-mode .universal-btn:hover { color: #ffffff; }
+    .universal-btn:active { transform: scale(0.9); }
+
+    .hero-small { padding: 160px 0 60px; text-align: center; }
+    .feature-detail-grid { display: grid; grid-template-columns: 1fr; gap: 60px; margin-top: 60px; }
+    .feature-row { display: flex; align-items: center; gap: 40px; }
+    .feature-row:nth-child(even) { flex-direction: row-reverse; }
+    .feature-text { flex: 1; }
+    .feature-visual { flex: 1; height: 300px; background: #e0e0e0; border-radius: 20px; position: relative; overflow: hidden; box-shadow: inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff; }
+    body.dark-mode .feature-visual { background: #262626; box-shadow: inset 5px 5px 10px #0d0d0d, inset -5px -5px 10px #333333; }
+    .feature-visual img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+
+    h1 { font-size: 48px; font-weight: 700; margin-bottom: 20px; color: var(--text-main); }
+    h2 { font-size: 32px; font-weight: 600; margin-bottom: 16px; color: var(--text-main); }
+    p { color: var(--text-muted); }
+
+    footer { border-top: 1px solid var(--card-border); padding: 48px 0; margin-top: 80px; background: var(--bg-body); }
+    .footer-content { text-align: center; color: var(--text-muted); font-size: 14px; }
+    .mobile-toggle { display: none; background: none; border: none; font-size: 24px; color: var(--text-main); cursor: pointer; }
+
+    @media (max-width: 768px) {
+        .navbar { width: 90%; padding: 10px 20px; }
+        .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--nav-bg); flex-direction: column; padding: 24px; border-radius: 0 0 30px 30px; gap: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .nav-links.active { display: flex; }
+        .mobile-toggle { display: block; }
+        .feature-row, .feature-row:nth-child(even) { flex-direction: column; }
+        .hero-small { padding-top: 140px; }
+    }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="logo">MAGIX<span style="color:var(--btn-color)">.MOD</span></a>
+        <button class="mobile-toggle" onclick="toggleMenu()">☰</button>
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-item" data-i18n="nav_home">Home</a></li>
+            <li><a href="#" class="nav-item active" data-i18n="nav_features">Features</a></li>
+            <li><a href="socials.html" class="nav-item" data-i18n="nav_socials">Socials</a></li>
+            <li><a href="index.html#gallery" class="nav-item" data-i18n="nav_gallery">Gallery</a></li>
+            
+            <li><button id="langBtn" class="universal-btn" onclick="toggleLanguage()" style="padding: 8px 16px;">EN</button></li>
+            <li><button class="universal-btn" onclick="toggleTheme()" title="Thème" style="padding: 8px 16px;">🌗</button></li>
+            
+            <li><a href="index.html#download" class="universal-btn" data-i18n="nav_download">Coming Soon</a></li>
+        </ul>
+    </div>
+</nav>
+
+<section class="hero-small reveal">
+    <div class="container">
+        <h1 data-i18n="hero_title">Technical Deep Dive</h1>
+        <p style="max-width: 600px; margin: 0 auto;" data-i18n="hero_desc">Discover what makes the Magistral Mod unique underneath the hood. Spoiler: It's not just new sprites.</p>
+    </div>
+</section>
+
+<section class="container reveal">
+    <div class="feature-detail-grid">
+        
+        <div class="feature-row reveal">
+            <div class="feature-text">
+                <h2 data-i18n="feat1_title">Custom Game Engine</h2>
+                <p data-i18n="feat1_desc">We didn't just skin Psych Engine. We rewrote core components to ensure minimal input latency and maximum frame stability. The Magistral Engine handles heavy modcharts without dropping below 60fps on mid-range hardware.</p>
+            </div>
+            <div class="feature-visual">
+                <img src="https://placehold.co/600x300/1e293b/ffffff?text=Engine+Metrics" alt="Engine">
+            </div>
+        </div>
+
+        <div class="feature-row reveal">
+            <div class="feature-text">
+                <h2 data-i18n="feat2_title">Dynamic Cutscenes</h2>
+                <p data-i18n="feat2_desc">Forget static images with text boxes. The mod features fully animated MP4 cutscenes integrated seamlessly between songs, expanding the lore of the Magistral YouTube channel universe.</p>
+            </div>
+            <div class="feature-visual">
+                <img src="https://placehold.co/600x300/1e293b/ffffff?text=Cutscene+System" alt="Cutscenes">
+            </div>
+        </div>
+
+        <div class="feature-row reveal">
+            <div class="feature-text">
+                <h2 data-i18n="feat3_title">Adaptive Difficulty</h2>
+                <p data-i18n="feat3_desc">Not everyone is a rhythm god. Our new AI-driven difficulty scaling adjusts scroll speed and health drain based on your performance in the first 30 seconds of a song. Or turn it off if you want the pain.</p>
+            </div>
+            <div class="feature-visual">
+                <img src="https://placehold.co/600x300/1e293b/ffffff?text=Difficulty+Graph" alt="AI Difficulty">
+            </div>
+        </div>
+
+    </div>
+    
+    <div style="text-align: center; margin-top: 80px;">
+        <a href="index.html#download" class="universal-btn" style="font-size: 18px; padding: 15px 40px;" data-i18n="cta_download">
+            Coming soon for download
+        </a>
+    </div>
+</section>
+
+<footer>
+    <div class="container footer-content">
+        <p data-i18n="footer_copy">&copy; 2025 Magistral. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    const translations = {
+        en: {
+            nav_home: "Home",
+            nav_features: "Features",
+            nav_socials: "Socials",
+            nav_gallery: "Gallery",
+            nav_download: "Coming Soon",
+            hero_title: "Technical Deep Dive",
+            hero_desc: "Discover what makes the Magistral Mod unique underneath the hood. Spoiler: It's not just new sprites.",
+            feat1_title: "Custom Game Engine",
+            feat1_desc: "We didn't just skin Psych Engine. We rewrote core components to ensure minimal input latency and maximum frame stability. The Magistral Engine handles heavy modcharts without dropping below 60fps on mid-range hardware.",
+            feat2_title: "Dynamic Cutscenes",
+            feat2_desc: "Forget static images with text boxes. The mod features fully animated MP4 cutscenes integrated seamlessly between songs, expanding the lore of the Magistral YouTube channel universe.",
+            feat3_title: "Adaptive Difficulty",
+            feat3_desc: "Not everyone is a rhythm god. Our new AI-driven difficulty scaling adjusts scroll speed and health drain based on your performance in the first 30 seconds of a song. Or turn it off if you want the pain.",
+            cta_download: "Coming soon for download",
+            footer_copy: "&copy; 2025 Magistral. All rights reserved."
+        },
+        fr: {
+            nav_home: "Accueil",
+            nav_features: "Fonctionnalités",
+            nav_socials: "Réseaux",
+            nav_gallery: "Galerie",
+            nav_download: "Bientôt Disponible",
+            hero_title: "Plongée Technique",
+            hero_desc: "Découvrez ce qui rend le mod Magistral unique sous le capot. Spoiler : Ce n'est pas juste de nouveaux sprites.",
+            feat1_title: "Moteur de Jeu Personnalisé",
+            feat1_desc: "On n'a pas juste relooké Psych Engine. On a réécrit des composants clés pour minimiser la latence. Le moteur Magistral gère des modcharts lourds sans passer sous les 60fps.",
+            feat2_title: "Cinématiques Dynamiques",
+            feat2_desc: "Oubliez les images statiques. Le mod intègre des cinématiques MP4 entièrement animées entre les chansons, développant l'histoire de la chaîne Magistral.",
+            feat3_title: "Difficulté Adaptative",
+            feat3_desc: "Tout le monde n'est pas un dieu du rythme. Notre IA ajuste la vitesse de défilement et la perte de vie selon votre performance durant les 30 premières secondes. Ou désactivez-la pour souffrir.",
+            cta_download: "Bientôt disponible en téléchargement",
+            footer_copy: "&copy; 2025 Magistral. Tous droits réservés."
+        }
+    };
+
+    let currentLang = 'en';
+
+    function toggleLanguage() {
+        currentLang = (currentLang === 'en') ? 'fr' : 'en';
+        document.getElementById('langBtn').innerText = currentLang.toUpperCase();
+        
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            if (translations[currentLang][key]) {
+                element.innerHTML = translations[currentLang][key];
+            }
+        });
+    }
+
+    function toggleTheme() { document.body.classList.toggle('dark-mode'); }
+    function toggleMenu() { document.querySelector('.nav-links').classList.toggle('active'); }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+</script>
+</body>
+</html>
