@@ -9,310 +9,400 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
     :root {
-      --bg-body: #f8fafc;
+      --bg-body: #f0f0f0; 
       --text-main: #0f172a;
       --text-muted: #64748b;
-      --nav-bg: rgba(255, 255, 255, 0.95);
+      --nav-bg: #e0e0e0; 
       --card-bg: #ffffff;
       --card-border: #e2e8f0;
-      --primary-color: #2563eb;
-      --primary-hover: #1d4ed8;
-      --accent-color: #3b82f6;
-      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      --btn-color: #725AC1; 
     }
+
     body.dark-mode {
-      --bg-body: #0f172a;
+      --bg-body: #1a1a1a;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --nav-bg: rgba(15, 23, 42, 0.9);
+      --nav-bg: #262626;
       --card-bg: #1e293b;
       --card-border: #334155;
-      --primary-color: #3b82f6;
-      --primary-hover: #60a5fa;
+      --btn-color: #a78bfa;
     }
+
+    html { scroll-behavior: smooth; }
     body { 
-        margin: 0; 
-        padding: 0; 
+        margin: 0; padding: 0; 
         font-family: 'Inter', sans-serif;
         background: var(--bg-body);
         color: var(--text-main);
         line-height: 1.6;
         transition: background 0.3s, color 0.3s;
     }
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 24px;
-    }
-    .reveal {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .reveal.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    
+    /* --- BARRE DE NAVIGATION --- */
     .navbar {
-        position: fixed;
-        top: 0; width: 100%;
+        position: fixed; 
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 95%;
+        max-width: 1200px;
+        border-radius: 30px;
         background: var(--nav-bg);
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid var(--card-border);
+        box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff;
         z-index: 1000;
-        padding: 16px 0;
+        padding: 10px 30px;
+        transition: all 0.3s ease;
     }
-    .nav-inner {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+
+    body.dark-mode .navbar {
+        box-shadow: 15px 15px 30px #0d0d0d, -15px -15px 30px #333333;
     }
-    .logo {
-        font-weight: 700;
-        font-size: 20px;
-        color: var(--text-main);
-        text-decoration: none;
-        letter-spacing: -0.5px;
+
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-weight: 700; font-size: 20px; color: var(--text-main); text-decoration: none; letter-spacing: -0.5px; }
+    .nav-links { display: flex; gap: 15px; list-style: none; align-items: center; margin: 0; padding: 0; }
+    
+    .nav-links a.nav-item {
+        text-decoration: none; color: var(--text-muted); font-size: 14px; font-weight: 500;
+        transition: all 0.2s ease; padding: 5px 10px; border-radius: 4px; cursor: pointer;
     }
-    .nav-links {
-        display: flex;
-        gap: 32px;
-        list-style: none;
+    .nav-links a.nav-item:hover { color: var(--btn-color); background: rgba(114, 90, 193, 0.05); }
+
+    /* --- BOUTONS CLASSIQUES (Nav) --- */
+    .universal-btn {
+        position: relative;
+        display: inline-flex;
+        justify-content: center;
         align-items: center;
         margin: 0;
-        padding: 0;
-    }
-    .nav-links a {
-        text-decoration: none;
-        color: var(--text-muted);
+        padding: 10px 24px;
+        text-align: center;
         font-size: 14px;
-        font-weight: 500;
-        transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--primary-color); }
-    .btn-primary {
-        background-color: var(--primary-color);
-        color: white;
-        padding: 10px 20px;
-        border-radius: 6px;
-        font-weight: 500;
+        letter-spacing: 1px;
         text-decoration: none;
-        font-size: 14px;
-        transition: all 0.2s;
-        border: none;
+        color: var(--btn-color);
+        background: transparent;
+        border: 2px solid var(--btn-color);
+        box-shadow: inset 0 0 0 0 var(--btn-color);
         cursor: pointer;
-        display: inline-block;
-    }
-    .btn-primary:hover {
-        background-color: var(--primary-hover);
-        transform: translateY(-1px);
-        box-shadow: var(--shadow-md);
-    }
-    .hero {
-        padding: 160px 0 100px;
-        text-align: center;
-    }
-    .badge {
-        display: inline-block;
-        background: rgba(37, 99, 235, 0.1);
-        color: var(--primary-color);
-        padding: 6px 12px;
-        border-radius: 100px;
-        font-size: 12px;
+        transition: ease-out 0.5s; 
+        border-radius: 10px;
         font-weight: 600;
-        margin-bottom: 24px;
-        border: 1px solid rgba(37, 99, 235, 0.2);
+        font-family: inherit;
+        white-space: nowrap;
     }
-    .hero h1 {
-        font-size: 56px;
-        line-height: 1.1;
-        font-weight: 700;
-        letter-spacing: -2px;
-        margin-bottom: 24px;
-        background: linear-gradient(to right, var(--text-main), var(--text-muted));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        color: var(--text-main);
-    }
-    .hero p {
-        font-size: 18px;
-        color: var(--text-muted);
-        max-width: 600px;
-        margin: 0 auto 40px;
-    }
-    .section { padding: 80px 0; }
-    .section-header {
-        text-align: center;
-        margin-bottom: 60px;
-    }
-    .section-title {
-        font-size: 32px;
-        font-weight: 600;
-        letter-spacing: -1px;
-        margin-bottom: 16px;
-    }
-    .grid-3 {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 32px;
-    }
-    .card {
-        background: var(--card-bg);
-        border: 1px solid var(--card-border);
-        border-radius: 12px;
-        padding: 32px;
-        transition: all 0.3s ease;
-        box-shadow: var(--shadow-sm);
-    }
-    .card:hover {
-        border-color: var(--primary-color);
-        box-shadow: var(--shadow-lg);
-    }
-    .card h3 {
-        margin-top: 0;
-        font-size: 18px;
-        font-weight: 600;
-    }
-    .card p {
-        color: var(--text-muted);
-        font-size: 15px;
-        margin-bottom: 0;
-    }
-    .media-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
-    }
-    .media-item {
-        border-radius: 12px;
-        overflow: hidden;
-        border: 1px solid var(--card-border);
-        aspect-ratio: 16/9;
-        background: #e2e8f0;
+    .universal-btn:hover { color: white; box-shadow: inset 0 -100px 0 0 var(--btn-color); }
+    body.dark-mode .universal-btn:hover { color: #ffffff; }
+    .universal-btn:active { transform: scale(0.9); }
+    
+    /* --- BOUTON "IMPORTANT" (Base REDUITE) --- */
+    .important-btn {
         position: relative;
-    }
-    .media-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-        display: block;
-    }
-    .media-item:hover img { transform: scale(1.03); }
-    footer {
-        border-top: 1px solid var(--card-border);
-        padding: 48px 0;
-        margin-top: 80px;
-        background: var(--bg-body);
-    }
-    .footer-content {
+        background-color: #262626;
+        /* height: 64px; SUPPRIMÉ POUR REDUIRE */
+        /* min-width: 256px; SUPPRIMÉ */
+        width: 230px; /* Largeur fixe pour qu'ils soient identiques */
+        border: 1px solid #e5e7eb;
+        color: #f9fafb;
+        font-size: 14px; /* Police réduite */
+        font-weight: 600;
+        border-radius: 10px;
+        padding: 12px 20px; /* Padding ajusté */
         text-align: center;
-        color: var(--text-muted);
-        font-size: 14px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.5s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none; /* Soulignement retiré pour le look plus petit */
+        z-index: 1;
+        box-sizing: border-box; /* Important pour que padding n'augmente pas la largeur */
     }
+    .important-btn span { position: relative; z-index: 10; }
+    .important-btn:hover {
+        border-color: #d8b4fe;
+        color: #d8b4fe;
+    }
+
+    /* --- VARIANTE DROITE (Download) - BLOBS REDUITS --- */
+    .blob-right::before {
+        content: ''; position: absolute; 
+        width: 2.5rem; height: 2.5rem; /* Réduit */
+        right: -0.5rem; top: -0.5rem; z-index: -1;
+        background-color: #8b5cf6; border-radius: 9999px; filter: blur(12px);
+        transition: all 0.5s ease;
+    }
+    .blob-right::after {
+        content: ''; position: absolute; 
+        width: 3.5rem; height: 3.5rem; /* Réduit */
+        right: 1rem; top: 50%; transform: translateY(-50%); z-index: -1;
+        background-color: #d8b4fe; border-radius: 9999px; filter: blur(12px);
+        transition: all 0.5s ease;
+    }
+    .blob-right:hover::before {
+        right: 1rem; bottom: -1rem;
+        box-shadow: 10px 10px 15px 20px #a21caf; filter: blur(8px);
+    }
+    .blob-right:hover::after { right: -1rem; }
+
+    /* --- VARIANTE GAUCHE (Trailer) - BLOBS REDUITS --- */
+    .blob-left::before {
+        content: ''; position: absolute; 
+        width: 2.5rem; height: 2.5rem; /* Réduit */
+        left: -0.5rem; top: -0.5rem; z-index: -1;
+        background-color: #8b5cf6; border-radius: 9999px; filter: blur(12px);
+        transition: all 0.5s ease;
+    }
+    .blob-left::after {
+        content: ''; position: absolute; 
+        width: 3.5rem; height: 3.5rem; /* Réduit */
+        left: 1rem; top: 50%; transform: translateY(-50%); z-index: -1;
+        background-color: #d8b4fe; border-radius: 9999px; filter: blur(12px);
+        transition: all 0.5s ease;
+    }
+    .blob-left:hover::before {
+        left: 1rem; bottom: -1rem;
+        box-shadow: -10px 10px 15px 20px #a21caf;
+        filter: blur(8px);
+    }
+    .blob-left:hover::after { left: -1rem; }
+
+
+    /* --- Sections --- */
+    .hero { padding: 180px 0 100px; text-align: center; }
+    .badge { display: inline-block; background: rgba(114, 90, 193, 0.1); color: var(--btn-color); padding: 6px 12px; border-radius: 100px; font-size: 12px; font-weight: 600; margin-bottom: 24px; border: 1px solid rgba(114, 90, 193, 0.2); }
+    .hero h1 { font-size: 56px; line-height: 1.1; font-weight: 700; letter-spacing: -2px; margin-bottom: 24px; background: linear-gradient(to right, var(--text-main), var(--text-muted)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; color: var(--text-main); }
+    .hero p { font-size: 18px; color: var(--text-muted); max-width: 600px; margin: 0 auto 40px; }
+    .section { padding: 80px 0; }
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-title { font-size: 32px; font-weight: 600; letter-spacing: -1px; margin-bottom: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; }
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 32px; transition: all 0.3s ease; box-shadow: var(--shadow-sm); }
+    .card:hover { border-color: var(--btn-color); box-shadow: var(--shadow-lg); }
+    .card h3 { margin-top: 0; font-size: 18px; font-weight: 600; }
+    .card p { color: var(--text-muted); font-size: 15px; margin-bottom: 0; }
+    
+    .media-grid { 
+        display: grid; 
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px; 
+    }
+    
+    .media-item { border-radius: 12px; overflow: hidden; border: 1px solid var(--card-border); aspect-ratio: 16/9; background: #e2e8f0; position: relative; }
+    .media-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; display: block; }
+    .media-item:hover img { transform: scale(1.03); }
+    footer { border-top: 1px solid var(--card-border); padding: 48px 0; margin-top: 80px; background: var(--bg-body); }
+    .footer-content { text-align: center; color: var(--text-muted); font-size: 14px; }
     .mobile-toggle { display: none; background: none; border: none; font-size: 24px; color: var(--text-main); cursor: pointer; }
+    
     @media (max-width: 768px) {
         .hero h1 { font-size: 36px; }
-        .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--nav-bg); flex-direction: column; padding: 24px; border-bottom: 1px solid var(--card-border); box-sizing: border-box; }
+        .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--nav-bg); flex-direction: column; padding: 24px; border-bottom: 1px solid var(--card-border); box-sizing: border-box; align-items: center; gap: 20px; border-radius: 0 0 30px 30px; }
         .nav-links.active { display: flex; }
         .mobile-toggle { display: block; }
         .media-grid { grid-template-columns: 1fr; }
+        .universal-btn, .important-btn { width: 100%; } 
+        .navbar { width: 90%; padding: 10px 20px; }
     }
 </style>
 </head>
 <body>
 <nav class="navbar">
-    <div class="container nav-inner">
-        <a href="#" class="logo">MAGISTRAL<span style="color:var(--primary-color)">.MOD</span></a>
+    <div class="nav-inner">
+        <a href="#" class="logo">MAGISTRAL<span style="color:var(--btn-color)">.MOD</span></a>
         <button class="mobile-toggle" onclick="toggleMenu()">☰</button>
         <ul class="nav-links">
-            <li><a href="#about">À propos</a></li>
-            <li><a href="#features">Fonctionnalités</a></li>
-            <li><a href="#gallery">Galerie</a></li>
-            <li><button onclick="toggleTheme()" style="background:none; border:none; cursor:pointer; font-size:16px;">🌗</button></li>
-            <li><a href="#download" class="btn-primary">Télécharger la v1.0</a></li>
+            <li><a href="#about" class="nav-item" data-i18n="nav_about">À propos</a></li>
+            <li><a href="#features" class="nav-item" data-i18n="nav_features">Fonctionnalités</a></li>
+            <li><a href="#gallery" class="nav-item" data-i18n="nav_gallery">Galerie</a></li>
+            
+            <li>
+                <button id="langBtn" class="universal-btn" onclick="toggleLanguage()" style="padding: 8px 16px;">
+                    FR
+                </button>
+            </li>
+            <li>
+                <button class="universal-btn" onclick="toggleTheme()" title="Thème" style="padding: 8px 16px;">
+                    🌗
+                </button>
+            </li>
+            <li><a href="#download" class="universal-btn" data-i18n="nav_download">Bientôt Disponible</a></li>
         </ul>
     </div>
 </nav>
+
 <section class="hero reveal">
     <div class="container">
-        <span class="badge">Nouvelle Version Bientôt Disponible</span>
-        <h1>Une nouvelle expérience<br>pour Friday Night Funkin'</h1>
-        <p>Le mod officiel de la chaîne Magistral4889. Une refonte graphique complète, des musiques originales et un défi technique optimisé.</p>
-        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-            <a href="#download" class="btn-primary" style="padding: 12px 32px; font-size: 16px;">Accéder au téléchargement</a>
-            <a href="https://www.youtube.com/@magistral4889" target="_blank" style="padding: 12px 32px; color: var(--text-main); text-decoration: none; border: 1px solid var(--card-border); border-radius: 6px; font-weight: 500; display: inline-block;">Voir le Trailer</a>
+        <span class="badge" data-i18n="hero_badge">Nouvelle Version Bientôt Disponible</span>
+        <h1 data-i18n="hero_title">Une nouvelle expérience<br>pour Friday Night Funkin'</h1>
+        <p data-i18n="hero_desc">Le mod officiel de la chaîne Magistral4889. Une refonte graphique complète, des musiques originales et un défi technique optimisé.</p>
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; align-items: center;">
+            
+            <button class="important-btn blob-right" onclick="document.getElementById('download').scrollIntoView({behavior: 'smooth'})">
+                <span data-i18n="hero_btn_dl">Infos Téléchargement</span>
+            </button>
+
+            <a href="https://www.youtube.com/@magistral4889" target="_blank" class="important-btn blob-left">
+                <span data-i18n="hero_btn_trailer">Voir le Trailer</span>
+            </a>
+            
         </div>
     </div>
 </section>
+
 <section id="about" class="section" style="background: var(--card-bg);">
     <div class="container">
         <div class="section-header reveal">
-            <h2 class="section-title">Pourquoi ce projet ?</h2>
-            <p style="color: var(--text-muted);">Conçu pour la communauté, développé avec rigueur.</p>
+            <h2 class="section-title" data-i18n="about_title">Pourquoi ce projet ?</h2>
+            <p style="color: var(--text-muted);" data-i18n="about_subtitle">Conçu pour la communauté, développé avec rigueur.</p>
         </div>
         <div class="grid-3">
             <div class="card reveal">
-                <h3>Immersion Totale</h3>
-                <p>Intégration complète de l'univers d'Aron dans le moteur FNF. Chaque sprite a été redessiné pour correspondre à l'identité visuelle de la chaîne.</p>
+                <h3 data-i18n="card1_title">Immersion Totale</h3>
+                <p data-i18n="card1_desc">Intégration complète de l'univers d'Aron dans le moteur FNF. Chaque sprite a été redessiné pour correspondre à l'identité visuelle de la chaîne.</p>
             </div>
             <div class="card reveal" style="transition-delay: 0.1s;">
-                <h3>Performance</h3>
-                <p>Code optimisé pour garantir une fluidité maximale, même sur des configurations modestes. Moins de latence, plus de précision.</p>
+                <h3 data-i18n="card2_title">Performance</h3>
+                <p data-i18n="card2_desc">Code optimisé pour garantir une fluidité maximale, même sur des configurations modestes. Moins de latence, plus de précision.</p>
             </div>
             <div class="card reveal" style="transition-delay: 0.2s;">
-                <h3>Contenu Exclusif</h3>
-                <p>Des pistes audio composées spécifiquement pour ce mod, offrant une courbe de difficulté progressive et engageante.</p>
+                <h3 data-i18n="card3_title">Contenu Exclusif</h3>
+                <p data-i18n="card3_desc">Des pistes audio composées spécifiquement pour ce mod, offrant une courbe de difficulté progressive et engageante.</p>
             </div>
         </div>
     </div>
 </section>
+
 <section id="gallery" class="section">
     <div class="container">
         <div class="section-header reveal">
-            <h2 class="section-title">Aperçu du jeu</h2>
+            <h2 class="section-title" data-i18n="gallery_title">Aperçu du jeu</h2>
         </div>
         <div class="media-grid">
             <div class="media-item reveal">
-                <img src="https://placehold.co/800x450/1e293b/ffffff?text=Gameplay+Preview+1" alt="Screenshot 1">
+                <img src="https://placehold.co/800x450/1e293b/ffffff?text=Gameplay+1" alt="Screenshot 1">
             </div>
             <div class="media-item reveal" style="transition-delay: 0.1s;">
-                <img src="https://placehold.co/800x450/1e293b/ffffff?text=Interface+Menu" alt="Screenshot 2">
+                <img src="https://placehold.co/800x450/1e293b/ffffff?text=Menu+Interface" alt="Screenshot 2">
             </div>
             <div class="media-item reveal" style="transition-delay: 0.2s;">
-                <img src="https://placehold.co/800x450/1e293b/ffffff?text=Character+Design" alt="Screenshot 3">
+                <img src="https://placehold.co/800x450/1e293b/ffffff?text=Aron+Design" alt="Screenshot 3">
             </div>
             <div class="media-item reveal" style="transition-delay: 0.3s;">
                 <img src="https://placehold.co/800x450/1e293b/ffffff?text=Versus+Mode" alt="Screenshot 4">
             </div>
+             <div class="media-item reveal" style="transition-delay: 0.4s;">
+                <img src="https://placehold.co/800x450/1e293b/ffffff?text=New+Stage" alt="Screenshot 5">
+            </div>
+             <div class="media-item reveal" style="transition-delay: 0.5s;">
+                <img src="https://placehold.co/800x450/1e293b/ffffff?text=Secret+Song" alt="Screenshot 6">
+            </div>
         </div>
     </div>
 </section>
-<section id="download" class="section" style="background: linear-gradient(180deg, var(--bg-body) 0%, rgba(37,99,235,0.05) 100%);">
+
+<section id="download" class="section" style="background: linear-gradient(180deg, var(--bg-body) 0%, rgba(114, 90, 193, 0.05) 100%);">
     <div class="container reveal" style="text-align: center; max-width: 600px;">
-        <h2 class="section-title">Commencer l'expérience</h2>
-        <p style="color: var(--text-muted); margin-bottom: 32px;">Le mod est disponible gratuitement. Assurez-vous d'avoir la version originale de FNF installée ou utilisez notre installeur autonome.</p>
-        <a href="#" class="btn-primary" style="padding: 16px 48px; font-size: 18px; box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.4);">
-            Télécharger pour Windows (x64)
-        </a>
-        <p style="margin-top: 16px; font-size: 12px; color: var(--text-muted);">Version 1.0.2 • 350 MB • Mise à jour le 19 Oct 2025</p>
+        <h2 class="section-title" data-i18n="dl_title">Un peu de patience...</h2>
+        <p style="color: var(--text-muted); margin-bottom: 32px;" data-i18n="dl_desc">Le mod est actuellement en phase finale de développement. Il sera bientôt disponible gratuitement ici.</p>
+        
+        <button class="important-btn blob-right" style="opacity: 0.7; cursor: not-allowed;">
+            <span data-i18n="dl_btn">Bientôt Disponible</span>
+        </button>
+        
+        <p style="margin-top: 16px; font-size: 12px; color: var(--text-muted);" data-i18n="dl_info">Sortie prévue : Bientôt™</p>
     </div>
 </section>
+
 <footer>
     <div class="container footer-content">
-        <p>&copy; 2025 Magistral4889. Tous droits réservés.</p>
-        <p style="opacity: 0.6; margin-top: 8px;">Ce projet n'est pas affilié aux développeurs originaux de Friday Night Funkin'.</p>
+        <p data-i18n="footer_copy">&copy; 2025 Magistral4889. Tous droits réservés.</p>
+        <p style="opacity: 0.6; margin-top: 8px;" data-i18n="footer_disclaimer">Ce projet n'est pas affilié aux développeurs originaux de Friday Night Funkin'.</p>
     </div>
 </footer>
+
 <script>
+    const translations = {
+        fr: {
+            nav_about: "À propos",
+            nav_features: "Fonctionnalités",
+            nav_gallery: "Galerie",
+            nav_download: "Bientôt Disponible",
+            hero_badge: "Nouvelle Version Bientôt Disponible",
+            hero_title: "Une nouvelle expérience<br>pour Friday Night Funkin'",
+            hero_desc: "Le mod officiel de la chaîne Magistral4889. Une refonte graphique complète, des musiques originales et un défi technique optimisé.",
+            hero_btn_dl: "Infos Téléchargement",
+            hero_btn_trailer: "Voir le Trailer",
+            about_title: "Pourquoi ce projet ?",
+            about_subtitle: "Conçu pour la communauté, développé avec rigueur.",
+            card1_title: "Immersion Totale",
+            card1_desc: "Intégration complète de l'univers d'Aron dans le moteur FNF. Chaque sprite a été redessiné pour correspondre à l'identité visuelle de la chaîne.",
+            card2_title: "Performance",
+            card2_desc: "Code optimisé pour garantir une fluidité maximale, même sur des configurations modestes. Moins de latence, plus de précision.",
+            card3_title: "Contenu Exclusif",
+            card3_desc: "Des pistes audio composées spécifiquement pour ce mod, offrant une courbe de difficulté progressive et engageante.",
+            gallery_title: "Aperçu du jeu",
+            dl_title: "Un peu de patience...",
+            dl_desc: "Le mod est actuellement en phase finale de développement. Il sera bientôt disponible gratuitement ici.",
+            dl_btn: "Bientôt Disponible",
+            dl_info: "Sortie prévue : Bientôt™",
+            footer_copy: "&copy; 2025 Magistral4889. Tous droits réservés.",
+            footer_disclaimer: "Ce projet n'est pas affilié aux développeurs originaux de Friday Night Funkin'."
+        },
+        en: {
+            nav_about: "About",
+            nav_features: "Features",
+            nav_gallery: "Gallery",
+            nav_download: "Coming Soon",
+            hero_badge: "New Version Available Soon",
+            hero_title: "A new experience<br>for Friday Night Funkin'",
+            hero_desc: "The official mod of the Magistral4889 channel. A complete graphical overhaul, original music, and an optimized technical challenge.",
+            hero_btn_dl: "Download Info",
+            hero_btn_trailer: "Watch Trailer",
+            about_title: "Why this project?",
+            about_subtitle: "Designed for the community, developed with rigor.",
+            card1_title: "Total Immersion",
+            card1_desc: "Complete integration of Aron's universe into the FNF engine. Each sprite has been redrawn to match the channel's visual identity.",
+            card2_title: "Performance",
+            card2_desc: "Optimized code to ensure maximum fluidity, even on modest configurations. Less latency, more precision.",
+            card3_title: "Exclusive Content",
+            card3_desc: "Audio tracks composed specifically for this mod, offering a progressive and engaging difficulty curve.",
+            gallery_title: "Game Preview",
+            dl_title: "Patience is key...",
+            dl_desc: "The mod is currently in the final stages of development. It will be available for free here very soon.",
+            dl_btn: "Coming Soon",
+            dl_info: "Expected release: Soon™",
+            footer_copy: "&copy; 2025 Magistral4889. All rights reserved.",
+            footer_disclaimer: "This project is not affiliated with the original developers of Friday Night Funkin'."
+        }
+    };
+
+    let currentLang = 'fr';
+
+    function toggleLanguage() {
+        currentLang = (currentLang === 'fr') ? 'en' : 'fr';
+        document.getElementById('langBtn').innerText = currentLang.toUpperCase();
+        
+        document.querySelectorAll('[data-i18n]').forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            if (translations[currentLang][key]) {
+                element.innerHTML = translations[currentLang][key];
+            }
+        });
+    }
+
     function toggleTheme() {
         document.body.classList.toggle('dark-mode');
     }
+
     function toggleMenu() {
         document.querySelector('.nav-links').classList.toggle('active');
     }
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
