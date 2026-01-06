@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projet Magistral • Mod Officiel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+      --bg-body: #f8fafc;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --nav-bg: rgba(255, 255, 255, 0.95);
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --primary-color: #2563eb;
+      --primary-hover: #1d4ed8;
+      --accent-color: #3b82f6;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    }
+    body.dark-mode {
+      --bg-body: #0f172a;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --nav-bg: rgba(15, 23, 42, 0.9);
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --primary-color: #3b82f6;
+      --primary-hover: #60a5fa;
+    }
+    body { 
+        margin: 0; 
+        padding: 0; 
+        font-family: 'Inter', sans-serif;
+        background: var(--bg-body);
+        color: var(--text-main);
+        line-height: 1.6;
+        transition: background 0.3s, color 0.3s;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+    .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .navbar {
+        position: fixed;
+        top: 0; width: 100%;
+        background: var(--nav-bg);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--card-border);
+        z-index: 1000;
+        padding: 16px 0;
+    }
+    .nav-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .logo {
+        font-weight: 700;
+        font-size: 20px;
+        color: var(--text-main);
+        text-decoration: none;
+        letter-spacing: -0.5px;
+    }
+    .nav-links {
+        display: flex;
+        gap: 32px;
+        list-style: none;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+    }
+    .nav-links a {
+        text-decoration: none;
+        color: var(--text-muted);
+        font-size: 14px;
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--primary-color); }
+    .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: 500;
+        text-decoration: none;
+        font-size: 14px;
+        transition: all 0.2s;
+        border: none;
+        cursor: pointer;
+        display: inline-block;
+    }
+    .btn-primary:hover {
+        background-color: var(--primary-hover);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+    }
+    .hero {
+        padding: 160px 0 100px;
+        text-align: center;
+    }
+    .badge {
+        display: inline-block;
+        background: rgba(37, 99, 235, 0.1);
+        color: var(--primary-color);
+        padding: 6px 12px;
+        border-radius: 100px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 24px;
+        border: 1px solid rgba(37, 99, 235, 0.2);
+    }
+    .hero h1 {
+        font-size: 56px;
+        line-height: 1.1;
+        font-weight: 700;
+        letter-spacing: -2px;
+        margin-bottom: 24px;
+        background: linear-gradient(to right, var(--text-main), var(--text-muted));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: var(--text-main);
+    }
+    .hero p {
+        font-size: 18px;
+        color: var(--text-muted);
+        max-width: 600px;
+        margin: 0 auto 40px;
+    }
+    .section { padding: 80px 0; }
+    .section-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+    .section-title {
+        font-size: 32px;
+        font-weight: 600;
+        letter-spacing: -1px;
+        margin-bottom: 16px;
+    }
+    .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 32px;
+    }
+    .card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 12px;
+        padding: 32px;
+        transition: all 0.3s ease;
+        box-shadow: var(--shadow-sm);
+    }
+    .card:hover {
+        border-color: var(--primary-color);
+        box-shadow: var(--shadow-lg);
+    }
+    .card h3 {
+        margin-top: 0;
+        font-size: 18px;
+        font-weight: 600;
+    }
+    .card p {
+        color: var(--text-muted);
+        font-size: 15px;
+        margin-bottom: 0;
+    }
+    .media-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+    .media-item {
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid var(--card-border);
+        aspect-ratio: 16/9;
+        background: #e2e8f0;
+        position: relative;
+    }
+    .media-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+        display: block;
+    }
+    .media-item:hover img { transform: scale(1.03); }
+    footer {
+        border-top: 1px solid var(--card-border);
+        padding: 48px 0;
+        margin-top: 80px;
+        background: var(--bg-body);
+    }
+    .footer-content {
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 14px;
+    }
+    .mobile-toggle { display: none; background: none; border: none; font-size: 24px; color: var(--text-main); cursor: pointer; }
+    @media (max-width: 768px) {
+        .hero h1 { font-size: 36px; }
+        .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--nav-bg); flex-direction: column; padding: 24px; border-bottom: 1px solid var(--card-border); box-sizing: border-box; }
+        .nav-links.active { display: flex; }
+        .mobile-toggle { display: block; }
+        .media-grid { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+<body>
+<nav class="navbar">
+    <div class="container nav-inner">
+        <a href="#" class="logo">MAGISTRAL<span style="color:var(--primary-color)">.MOD</span></a>
+        <button class="mobile-toggle" onclick="toggleMenu()">☰</button>
+        <ul class="nav-links">
+            <li><a href="#about">À propos</a></li>
+            <li><a href="#features">Fonctionnalités</a></li>
+            <li><a href="#gallery">Galerie</a></li>
+            <li><button onclick="toggleTheme()" style="background:none; border:none; cursor:pointer; font-size:16px;">🌗</button></li>
+            <li><a href="#download" class="btn-primary">Télécharger la v1.0</a></li>
+        </ul>
+    </div>
+</nav>
+<section class="hero reveal">
+    <div class="container">
+        <span class="badge">Nouvelle Version Bientôt Disponible</span>
+        <h1>Une nouvelle expérience<br>pour Friday Night Funkin'</h1>
+        <p>Le mod officiel de la chaîne Magistral4889. Une refonte graphique complète, des musiques originales et un défi technique optimisé.</p>
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+            <a href="#download" class="btn-primary" style="padding: 12px 32px; font-size: 16px;">Accéder au téléchargement</a>
+            <a href="https://www.youtube.com/@magistral4889" target="_blank" style="padding: 12px 32px; color: var(--text-main); text-decoration: none; border: 1px solid var(--card-border); border-radius: 6px; font-weight: 500; display: inline-block;">Voir le Trailer</a>
+        </div>
+    </div>
+</section>
+<section id="about" class="section" style="background: var(--card-bg);">
+    <div class="container">
+        <div class="section-header reveal">
+            <h2 class="section-title">Pourquoi ce projet ?</h2>
+            <p style="color: var(--text-muted);">Conçu pour la communauté, développé avec rigueur.</p>
+        </div>
+        <div class="grid-3">
+            <div class="card reveal">
+                <h3>Immersion Totale</h3>
+                <p>Intégration complète de l'univers d'Aron dans le moteur FNF. Chaque sprite a été redessiné pour correspondre à l'identité visuelle de la chaîne.</p>
+            </div>
+            <div class="card reveal" style="transition-delay: 0.1s;">
+                <h3>Performance</h3>
+                <p>Code optimisé pour garantir une fluidité maximale, même sur des configurations modestes. Moins de latence, plus de précision.</p>
+            </div>
+            <div class="card reveal" style="transition-delay: 0.2s;">
+                <h3>Contenu Exclusif</h3>
+                <p>Des pistes audio composées spécifiquement pour ce mod, offrant une courbe de difficulté progressive et engageante.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="gallery" class="section">
+    <div class="container">
+        <div class="section-header reveal">
+            <h2 class="section-title">Aperçu du jeu</h2>
+        </div>
+        <div class="media-grid">
+            <div class="media-item reveal">
+                <img src="https://placehold.co/800x450/1e293b/ffffff?text=Gameplay+Preview+1" alt="Screenshot 1">
+            </div>
+            <div class="media-item reveal" style="transition-delay: 0.1s;">
+                <img src="https://placehold.co/800x450/1e293b/ffffff?text=Interface+Menu" alt="Screenshot 2">
+            </div>
+            <div class="media-item reveal" style="transition-delay: 0.2s;">
+                <img src="https://placehold.co/800x450/1e293b/ffffff?text=Character+Design" alt="Screenshot 3">
+            </div>
+            <div class="media-item reveal" style="transition-delay: 0.3s;">
+                <img src="https://placehold.co/800x450/1e293b/ffffff?text=Versus+Mode" alt="Screenshot 4">
+            </div>
+        </div>
+    </div>
+</section>
+<section id="download" class="section" style="background: linear-gradient(180deg, var(--bg-body) 0%, rgba(37,99,235,0.05) 100%);">
+    <div class="container reveal" style="text-align: center; max-width: 600px;">
+        <h2 class="section-title">Commencer l'expérience</h2>
+        <p style="color: var(--text-muted); margin-bottom: 32px;">Le mod est disponible gratuitement. Assurez-vous d'avoir la version originale de FNF installée ou utilisez notre installeur autonome.</p>
+        <a href="#" class="btn-primary" style="padding: 16px 48px; font-size: 18px; box-shadow: 0 20px 25px -5px rgba(37, 99, 235, 0.4);">
+            Télécharger pour Windows (x64)
+        </a>
+        <p style="margin-top: 16px; font-size: 12px; color: var(--text-muted);">Version 1.0.2 • 350 MB • Mise à jour le 19 Oct 2025</p>
+    </div>
+</section>
+<footer>
+    <div class="container footer-content">
+        <p>&copy; 2025 Magistral4889. Tous droits réservés.</p>
+        <p style="opacity: 0.6; margin-top: 8px;">Ce projet n'est pas affilié aux développeurs originaux de Friday Night Funkin'.</p>
+    </div>
+</footer>
+<script>
+    function toggleTheme() {
+        document.body.classList.toggle('dark-mode');
+    }
+    function toggleMenu() {
+        document.querySelector('.nav-links').classList.toggle('active');
+    }
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+</script>
+</body>
+</html>
